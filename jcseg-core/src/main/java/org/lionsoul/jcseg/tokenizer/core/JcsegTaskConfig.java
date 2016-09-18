@@ -213,7 +213,7 @@ public class JcsegTaskConfig implements Cloneable
      * @param   is
      * @throws  IOException 
     */
-    public void load( InputStream is ) throws IOException
+    public void load(InputStream is) throws IOException
     {
         Properties lexPro = new Properties();
         lexPro.load(new BufferedInputStream(is));

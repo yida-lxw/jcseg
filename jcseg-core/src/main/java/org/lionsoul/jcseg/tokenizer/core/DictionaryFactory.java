@@ -85,7 +85,9 @@ public class DictionaryFactory
             if ( lexpath == null ) {
                 dic.loadClassPath();
             } else {
-                for ( String lpath : lexpath )      dic.loadDirectory(lpath);
+                for ( String lpath : lexpath ) {
+                    dic.loadDirectory(lpath);
+                }
                 if ( dic.getConfig().isAutoload() ) dic.startAutoload();
             }
         } catch (IOException e) {

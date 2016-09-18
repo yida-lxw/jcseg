@@ -95,13 +95,12 @@ public class JcsegAnalyzer5X extends Analyzer
     {
         try {
             Tokenizer tokenizer = new JcsegTokenizer(mode, config, dic);
-            return new TokenStreamComponents(tokenizer, new JcsegFilter(tokenizer));
+            return new TokenStreamComponents(tokenizer);
         } catch (JcsegException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
         return null;
     }
 }

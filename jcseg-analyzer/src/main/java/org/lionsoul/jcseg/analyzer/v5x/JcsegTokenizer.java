@@ -6,12 +6,7 @@ import org.apache.lucene.analysis.Tokenizer;
 import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
 import org.apache.lucene.analysis.tokenattributes.OffsetAttribute;
 import org.apache.lucene.analysis.tokenattributes.TypeAttribute;
-import org.lionsoul.jcseg.tokenizer.core.ADictionary;
-import org.lionsoul.jcseg.tokenizer.core.ISegment;
-import org.lionsoul.jcseg.tokenizer.core.IWord;
-import org.lionsoul.jcseg.tokenizer.core.JcsegException;
-import org.lionsoul.jcseg.tokenizer.core.JcsegTaskConfig;
-import org.lionsoul.jcseg.tokenizer.core.SegmentFactory;
+import org.lionsoul.jcseg.tokenizer.core.*;
 
 
 /**
@@ -47,11 +42,15 @@ public class JcsegTokenizer extends Tokenizer
     private final OffsetAttribute offsetAtt = addAttribute(OffsetAttribute.class);
     private final TypeAttribute typeAtt = addAttribute(TypeAttribute.class);
     
-    public JcsegTokenizer(
-        int mode,
-        JcsegTaskConfig config,
-        ADictionary dic ) throws JcsegException, IOException 
-    {
+    public JcsegTokenizer(int mode, JcsegTaskConfig config, ADictionary dic )
+            throws JcsegException, IOException {
+        segmentor = SegmentFactory.createJcseg(mode, new Object[]{config, dic});
+        segmentor.reset(input);
+    }
+
+    public JcsegTokenizer(String propertiesPath,int mode) throws JcsegException, IOException {
+        JcsegTaskConfig config = new JcsegTaskConfig(propertiesPath);
+        ADictionary dic = DictionaryFactory.createSingletonDictionary(config);
         segmentor = SegmentFactory.createJcseg(mode, new Object[]{config, dic});
         segmentor.reset(input);
     }
